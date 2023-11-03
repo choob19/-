@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
     if (signal(2, handler) < 0) Err_Handler(__LINE__);
     res = 1;
     while (res > 0) {
-      if (msgrcv(msqid, &msg, sizeof(msg), 1, 2) == -1) Err_Handler(__LINE__);
+      if (msgrcv(msqid, &msg, sizeof(msg), 1, 0) == -1) Err_Handler(__LINE__);
 
       res = read(STDIN_FILENO, buf, sizeof(buf));
       usleep(200000);
