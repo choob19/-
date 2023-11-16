@@ -63,12 +63,12 @@ int main(int argc, char const *argv[])
   key_t key;
   Msg msg = {0};
   /* Смена диспозиции сигнала для корректного выхода с удалением очереди */
-  if (signal(SIGINT, signal_handler) < 0) Err_Handler(__LINE__);
+  signal(SIGINT, signal_handler);
   /* Получение ключа */
   key = ftok("6stask", 'q');
   if (key < 0) Err_Handler(__LINE__);
   /* Создание очереди сообщений */
-  msqid_in = msgget(key, 0666 | IPC_CREAT); //  0444 потому что из этой очереди сервер только считывает сообщения
+  msqid_in = msgget(key, 0666 | IPC_CREAT);
   if (msqid_in == -1) Err_Handler(__LINE__);
   /* Начало работы сервера. Ожидание сообщений, обработка, отправка ответа в другую очередь */
   while (1) {
